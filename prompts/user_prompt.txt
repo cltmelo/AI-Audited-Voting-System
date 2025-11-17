@@ -1,0 +1,20 @@
+Analyze the following voting data. Each record contains:
+- 'voter': The voter's wallet address.
+- 'txCount': The "age" of the wallet (transaction count).
+- 'balance': The ETH balance at the time of voting.
+- 'txHash': The transaction hash.
+
+TASK:
+**Generate an audit report in Brazilian Portuguese (Português-BR).**
+Focus on identifying:
+1.  **Sybil Attacks:** Look for a large number of votes
+    coming from very new wallets (e.g., low 'txCount' like 1, 2, or 3).
+    This suggests a single actor created multiple wallets to vote.
+2.  **General Anomalies:** Any other pattern that seems suspicious (e.g., multiple
+    votes with identical or very low balances).
+
+Provide a clear executive summary and, if applicable, a list
+of suspicious wallet addresses, explaining why.
+
+VOTING DATA (JSON):
+{dados_json}

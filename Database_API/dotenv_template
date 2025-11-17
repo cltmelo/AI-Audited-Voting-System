@@ -1,0 +1,5 @@
+MYSQL_USER="[mysql username here (usually 'root')]"
+MYSQL_PASSWORD="[mysql password here]"
+MYSQL_HOST="[mysql host here (usually 'localhost')]"
+MYSQL_DB="[mysql database name here (in this project, 'voter_db', for example)]"
+SECRET_KEY="[your secret key here]"

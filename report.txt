@@ -1,0 +1,31 @@
+--- RELATÓRIO DE AUDITORIA ---
+Gerado em: segunda, 17 de novembro de 2025 - 01:31:34
+----------------------------------
+
+**Relatório de Auditory - Análise de Votos**
+
+**Resumo Executivo:**
+A análise dos dados de votos não revelou evidências claras de ataques Sybil, mas identificamos algumas anomalias que merecem atenção. A maioria das transações foi realizada por wallets mais antigas e com um maior número de transactions. No entanto, observamos algumas transações com balances extremamente baixos (apenas alguns centimos) em relação à média geral.
+
+**Análise Detalhada:**
+
+1. **Sybil Attacks:** Não foram encontrados indícios de ataques Sybil nos dados fornecidos, pois a maioria das wallets apresentam um alto número de transactions (mais de 5). Isso sugere que as wallets são maduras e possuem uma boa história de transações.
+2. **General Anomalies:** Identificamos algumas anomalias interessantes:
+	* Votação com balance extremamente baixo: A votação com o endereço de wallet "0x7c53ad7CC349D08E656F328A4Ee597e943FD7312" apresenta um balance muito baixo ("99.998997543461480539 ETH"). Isso pode indicar uma tentativa de fraude, pois um voto com um balance tão baixo não é consistente com a média geral.
+	* Votações em sequência: Observamos que várias votações foram realizadas em sequência por wallets diferentes. Embora isso seja possível, é importante investigar mais profundamente para entender se há alguma conexão entre essas wallets.
+
+**Tabelas de Referência:**
+
+| Wallet Address | txCount | Balance (ETH) |
+| --- | --- | --- |
+| 0x7c53ad7CC349D08E656F328A4Ee597e943FD7312 | 6 | 99.998997543461480539 |
+
+**Recomendações:**
+
+* Investigar a votação realizada pelo endereço de wallet "0x7c53ad7CC349D08E656F328A4Ee597e943FD7312" para entender melhor o contexto e avaliar se há alguma conexão com outras transações.
+* Monitorar as futuras votações para detectar qualquer padrão suspeito ou aumento nos votos realizados por wallets novas ou com baixos balances.
+
+**Observações Finais:**
+A análise dos dados de votos não revelou indícios claros de ataques Sybil, mas identificamos algumas anomalias que merecem atenção. É importante continuar monitorando as transações e investigar mais profundamente para garantir a integridade do processo de voto.
+
+**Data de Criação:** 2023-03-15
