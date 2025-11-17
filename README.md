@@ -1,4 +1,4 @@
-# SentinelaVote: Sistema de Votação com Auditoria de IA
+# AI-Audited Voting System: Sistema de Votação com Auditoria de IA      **ATUALIZAR ESSE README DEPOIS!!!!!!**
 
 ![Solidity](https://img.shields.io/badge/Solidity-0.8.0+-363636?logo=solidity)
 ![Truffle](https://img.shields.io/badge/Truffle-5.x-yellow)
@@ -17,22 +17,65 @@ Aplicação híbrida (Web 2.5 + Web 3) que combina um sistema de votação desce
 - Implementar um sistema de votação descentralizado transparente e imutável via contratos inteligentes.
 - Adicionar uma camada de autenticação tradicional (Web 2.0) com Python/MySQL para gerenciamento de eleitores.
 - Desenvolver um coletor de eventos Node.js (`listener.js`) para monitorar a blockchain em tempo real.
-- Integrar um Modelo de Linguagem Grande (LLM) local (Llama 3 via Ollama) para análise forense de padrões de votação.
+- Integrar um LLM local (Llama 3 via Ollama) para análise forense de padrões de votação.
 - Gerar relatórios de auditoria detalhados, focando na detecção de fraudes como Ataques Sybil.
 - Servir como uma base didática para projetos que mesclam tecnologias Web2 e Web3 com IA local.
 
 ## 🧱 Arquitetura do Sistema
-O **SentinelaVote** é composto por cinco componentes principais independentes que interagem para formar um ecossistema robusto.
+O projeto é composto por componentes independentes que interagem para formar um ecossistema robusto.
 
-SentinelaVote/ ├─ blockchain/ │ ├─ contracts/Voting.sol # Contrato inteligente de votação (Solidity) │ └─ truffle-config.js # Configuração do Truffle ├─ backend/ │ ├─ main.py # Servidor FastAPI para autenticação │ ├─ .env # Variáveis de ambiente para MySQL │ └─ requirements.txt # Dependências Python ├─ src/ │ ├─ js/app.js # Lógica frontend do DApp (JS puro) │ ├─ dist/app.bundle.js # Bundle JS gerado por Browserify (NÃO EDITAR) │ ├─ admin.html, index.html, login.html # Interfaces do usuário │ └─ package.json # Dependências Node.js do frontend ├─ listener.js # Coletor de eventos da blockchain (Node.js) ├─ auditor_IA.py # Script Python para auditoria de IA ├─ data/ │ └─ audit_database.json # Votos coletados pelo listener (gerado) └─ prompts/ ├─ system_prompt.txt # Prompt de sistema para o LLM └─ user_prompt_template.txt # Template de prompt do usuário para o LLM
+├── blockchain-voting-dapp            # Root directory of the project.
+    ├── build                         # Directory containing compiled contract artifacts.
+    |   └── contracts                 
+    |       ├── Migrations.json       
+    |       └── Voting.json           
+    ├── contracts                     # Directory containing smart contract source code.
+    |   ├── 2_deploy_contracts.js     
+    |   ├── Migrations.sol            
+    |   └── Voting.sol
+    ├── data                          # Directory containing database for audit by AI.
+    |   └── audit_database.json
+    ├── Database_API                  # API code for database communication.
+    |   └── main.py
+    |   └── .env
+    ├── migrations                    # Ethereum contract deployment scripts.
+    |   └── 1_initial_migration.js    
+    ├── node_modules                  # Node.js modules and dependencies.
+    ├── prompts                       # System and user prompts for LLM.
+    |   └── system_prompt.txt
+    |   └── user_prompt.txt
+    ├── public                        # Public assets.              
+    ├── src                           
+    |   ├── assets                    # Project images.              
+    |   ├── css                       # CSS stylesheets.
+    |   |   ├── admin.css             
+    |   |   ├── index.css             
+    |   |   └── login.css             
+    |   ├── dist                      # Compiled JavaScript bundles.
+    |   |   ├── app.bundle.js               
+    |   ├── html                      # HTML templates.
+    |   |   ├── admin.html            
+    |   |   ├── index.html            
+    |   |   └── login.html            
+    |   └── js                        # JavaScript logic files.
+    |       ├── app.js                
+    |       └── login.js              
+    ├── .env
+    ├── index.js                      # Main entry point for Node.js application.
+    ├── listener.js                   # Blockchain events colector for Node.js application.
+    ├── auditor.py                    # Ai auditor.
+    ├── package.json                  # Node.js package configuration.
+    ├── package-lock.json             # Lockfile for package dependencies.
+    ├── README.md                     # Project documentation.
+    └── truffle-config.js             # Truffle configuration file.
 
 **Fluxo de Dados:**
-Usuário (login.html) $\rightarrow$ Backend (FastAPI/MySQL) $\rightarrow$ Frontend (admin/index.html via MetaMask) $\leftrightarrow$ Blockchain (Voting.sol). O Contrato Voting.sol *emite eventos* $\rightarrow$ Coletor (listener.js) *ouve* e *coleta dados* $\rightarrow$ `data/audit_database.json` $\rightarrow$ Auditor de IA (auditor_IA.py) *lê e analisa* com Ollama/Llama 3 $\rightarrow$ `report.txt`.
+Usuário (login.html) $\rightarrow$ Backend (FastAPI/MySQL) $\rightarrow$ Frontend (admin/index.html via MetaMask) $\leftrightarrow$ Blockchain (Voting.sol). O Contrato Voting.sol *emite eventos* $\rightarrow$ Coletor (listener.js) *ouve* e *coleta dados* $\rightarrow$ `data/audit_database.json` $\rightarrow$ Auditor de IA (auditor.py) *lê e analisa* com Ollama/Llama 3 $\rightarrow$ `report.txt`.
 
 ## 🔧 Requisitos
 -   **Sistema Operacional:** Linux, macOS, ou WSL2 (para Windows).
 -   **Node.js:** v18+ e `npm` (recomendado usar `nvm`).
--   **Python:** v3.9+ e `pip`.
+-   **Python:** v3.9+ e `pip` (sugestão: usar um ambiente virtual venv ou conda).
 -   **MySQL Server:** v8.0+.
 -   **Truffle:** Globalmente instalado (`npm install -g truffle`).
 -   **Ganache (GUI):** A blockchain pessoal Ethereum (trufflesuite.com/ganache).
@@ -43,14 +86,65 @@ Usuário (login.html) $\rightarrow$ Backend (FastAPI/MySQL) $\rightarrow$ Fronte
 
 ## 🚀 Guia de Instalação e Execução Local (Crucial para Evitar Erros!)
 
+## Instalação
+
+1. Open a terminal.
+
+2. Clone the repository by using the command
+        
+        git clone https://github.com/Krish-Depani/Decentralized-Voting-System-Using-Ethereum-Blockchain.git
+
+3. Download and install [Ganache](https://trufflesuite.com/ganache/).
+
+4. Create a workspace named <b>developement</b>, in the truffle projects section add `truffle-config.js` by clicking `ADD PROJECT` button.
+
+5. Download [Metamask](https://metamask.io/download/) extension for the browser.
+
+6. Now create wallet (if you don't have one), then import accounts from ganache.
+
+7. Add network to the metamask. ( Network name - Localhost 7575, RPC URl - http://localhost:7545, Chain ID - 1337, Currency symbol - ETH)
+
+8. Open MySQL and create database named <b>voter_db</b>. (DON'T USE XAMPP)
+
+9. In the database created, create new table named <b>voters</b> in the given format and add some values.
+
+           CREATE TABLE voters (
+           voter_id VARCHAR(36) PRIMARY KEY NOT NULL,
+           role ENUM('admin', 'user') NOT NULL,
+           password VARCHAR(255) NOT NULL
+           );
+   <br>
+
+        +--------------------------------------+-------+-----------+
+        | voter_id                             | role  | password  |
+        +--------------------------------------+-------+-----------+
+        |                                      |       |           |
+        +--------------------------------------+-------+-----------+
+
+12. Install truffle globally
+    
+        npm install -g truffle
+
+14. Go to the root directory of repo and install node modules
+
+        npm install
+
+15. Install python dependencies
+
+        pip install fastapi mysql-connector-python pydantic python-dotenv uvicorn uvicorn[standard] PyJWT
+
 Este projeto possui múltiplos componentes que precisam ser sincronizados. Siga os passos **EXATAMENTE** para evitar erros comuns.
 
 ### Fase 1: O "Grande Reset" (Sincronização da Blockchain e Frontend)
 
 **Este passo é CRÍTICO!** Você DEVE executá-lo sempre que:
-1.  Clonar o repositório pela primeira vez.
-2.  Modificar o arquivo `blockchain/contracts/Voting.sol`.
-3.  O `listener.js` não estiver detectando eventos ou o frontend estiver exibindo `network/artifact mismatch`.
+1.  Clonar o repositório pela primeira vez:
+2.  '''bash
+3.  git clone [link]
+4.  '''
+5.  
+6.  Modificar o arquivo `blockchain/contracts/Voting.sol`.
+7.  O `listener.js` não estiver detectando eventos ou o frontend estiver exibindo `network/artifact mismatch`.
 
 Abra um terminal na **raiz do projeto**:
 
@@ -201,6 +295,14 @@ Abra **5 terminais separados** (ou 6, se quiser rodar o auditor de IA em tempo r
     * **Solução:** Verifique se o Ganache está **rodando** e configurado para a **porta `7545`**.
 -   **`auditor_IA.py` está muito lento:** O Ollama está executando o Llama 3 primariamente na CPU.
     * **Solução:** Verifique `ollama ps`. Se a `PROCESSOR` mostrar uma divisão `CPU/GPU`, a VRAM é insuficiente. Mude o `MODELO_LLAMA` em `auditor_IA.py` para um modelo menor (ex: `mistral:7b`).
+
+## 🙏 Agradecimentos e Créditos
+
+Este projeto é uma extensão e adaptação de um sistema de votação descentralizado de código aberto. A base fundamental do DApp, incluindo os contratos Solidity iniciais e a interface de votação, foi desenvolvida por **Krish Depani**.
+
+O trabalho dele serviu como um excelente ponto de partida para este projeto. Você pode encontrar o repositório original aqui:
+
+* **Projeto Base:** [https://github.com/Krish-Depani/Decentralized-Voting-System](https://github.com/Krish-Depani/Decentralized-Voting-System)
 
 ## 📄 Licença
 MIT
