@@ -69,8 +69,20 @@ O projeto é composto por componentes independentes que interagem para formar um
 		├── README.md                     # Project documentation.
 		└── truffle-config.js             # Truffle configuration file.
 
-## Fluxo de Dados:
-	Usuário (login.html) $\rightarrow$ Backend (FastAPI/MySQL) $\rightarrow$ Frontend (admin/index.html via MetaMask) $\leftrightarrow$ Blockchain (Voting.sol). O Contrato Voting.sol *emite eventos* $\rightarrow$ Coletor (listener.js) *ouve* e *coleta dados* $\rightarrow$ `data/audit_database.json` $\rightarrow$ Auditor de IA (auditor.py) *lê e analisa* com Ollama/Llama 3 $\rightarrow$ `report.txt`.
+## Fluxo de Dados
+
+```mermaid
+flowchart LR
+    A[Usuário<br>(login.html)]
+    --> B[Backend<br>(FastAPI / MySQL)]
+    --> C[Frontend<br>(admin/index.html via MetaMask)]
+    <--> D[Blockchain<br>(Voting.sol)]
+
+    D -- "emite eventos" --> E[Coletor<br>(listener.js)]
+    E --> F[data/audit_database.json]
+    F --> G[Auditor de IA<br>(auditor.py + Ollama / Llama 3)]
+    G --> H[report.txt]
+
 
 ## 🔧 Requisitos
 -   **Sistema Operacional:** Linux, macOS, ou WSL2 (para Windows).
@@ -109,7 +121,7 @@ O projeto é composto por componentes independentes que interagem para formar um
 		CREATE DATABASE voter_db;
 
 9. Caso abra um novo terminal para reconectar no mysql, lembresse de entrar na BD.
-		USE voter_db; 
+		USE voter_db;
 
 10. Com a BD criada, crie uma nova tabela chamada de <b>voters</b> no seguinte formato e adicione alguns valores.
 
@@ -181,16 +193,16 @@ O projeto é composto por componentes independentes que interagem para formar um
 
         truffle compile       # Compila Voting.sol e gera novos ABIs em 'build/'
 
-5. "Empacote" o app.js com o browserify.
-    
-        browserify ./src/js/app.js -o ./src/dist/app.bundle.js
-
-6. Em um novo terminal, façamos o deploy do contrato para a blockchain local.
+5. Em um novo terminal, façamos o deploy do contrato para a blockchain local.
     
         truffle migrate       # ou use o comando: truffle migrate --reset
     **Recomendação:** Por precaução, rode o comando acima com a flag [--reset].
     Isso implanta o contrato NOVO no Ganache (é bom ANOTAR o endereço do contrato), ou seja, geram novos `Voting.json` e `Migrations.json` em `build/contracts/` com o endereço dos contratos recém-deployados.
    
+6. "Empacote" o app.js com o browserify.
+    
+        browserify ./src/js/app.js -o ./src/dist/app.bundle.js
+
 7. Inicialize o servidor node.
     
         node index.js
