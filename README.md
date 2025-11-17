@@ -70,7 +70,7 @@ O projeto é composto por componentes independentes que interagem para formar um
 		└── truffle-config.js             # Truffle configuration file.
 
 ## Fluxo de Dados:
-		Usuário (login.html) $\rightarrow$ Backend (FastAPI/MySQL) $\rightarrow$ Frontend (admin/index.html via MetaMask) $\leftrightarrow$ Blockchain (Voting.sol). O Contrato Voting.sol *emite eventos* $\rightarrow$ Coletor (listener.js) *ouve* e *coleta dados* $\rightarrow$ `data/audit_database.json` $\rightarrow$ Auditor de IA (auditor.py) *lê e analisa* com Ollama/Llama 3 $\rightarrow$ `report.txt`.
+	Usuário (login.html) $\rightarrow$ Backend (FastAPI/MySQL) $\rightarrow$ Frontend (admin/index.html via MetaMask) $\leftrightarrow$ Blockchain (Voting.sol). O Contrato Voting.sol *emite eventos* $\rightarrow$ Coletor (listener.js) *ouve* e *coleta dados* $\rightarrow$ `data/audit_database.json` $\rightarrow$ Auditor de IA (auditor.py) *lê e analisa* com Ollama/Llama 3 $\rightarrow$ `report.txt`.
 
 ## 🔧 Requisitos
 -   **Sistema Operacional:** Linux, macOS, ou WSL2 (para Windows).
@@ -104,14 +104,14 @@ O projeto é composto por componentes independentes que interagem para formar um
 
 7. Adicione uma network ao metamask. ( Network name - Localhost 7575, RPC URl - http://localhost:7545, Chain ID - 1337, Currency symbol - ETH)
 
-8. Abra MySQL (**ver fontes externas para instalação e configurações padrão para usar o root como usuário, por exemplo) e crie uma base de dados chamada <b>voter_db</b>. (Não use XAMPP !)
+8. Abra MySQL (**ver fontes externas para instalação e configurações padrão para usar o root como usuário, por exemplo**) e crie uma base de dados chamada <b>voter_db</b>. (Não use XAMPP !)
 		sudo mysql -u root -p
 		CREATE DATABASE voter_db;
 
-8.1. Caso abra um novo terminal para reconectar no mysql, lembresse de entrar na BD.
+9. Caso abra um novo terminal para reconectar no mysql, lembresse de entrar na BD.
 		USE voter_db; 
 
-9. Com a BD criada, crie uma nova tabela chamada de <b>voters</b> no seguinte formato e adicione alguns valores.
+10. Com a BD criada, crie uma nova tabela chamada de <b>voters</b> no seguinte formato e adicione alguns valores.
 
 
            CREATE TABLE voters (
@@ -127,7 +127,7 @@ O projeto é composto por componentes independentes que interagem para formar um
         |                                      |       |           |
         +--------------------------------------+-------+-----------+
 
-9.1. **IMPORTANTE:** Aqui é necessário adicionar pelo menos um "admin" e um "user" na tabela para que possa-se testar a aplicação (exemplo a seguir), pois é nesta tabela que serão armazenados os dados de login tanto para votantes quanto para quem realiza cadastros.
+11. **IMPORTANTE:** Aqui é necessário adicionar pelo menos um "admin" e um "user" na tabela para que possa-se testar a aplicação (exemplo a seguir), pois é nesta tabela que serão armazenados os dados de login tanto para votantes quanto para quem realiza cadastros.
 
 
            INSERT INTO voters (voter_id, role, password) VALUES ('adress_1_from_metamask', 'password_1_from_metamask', 'admin');
