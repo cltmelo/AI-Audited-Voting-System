@@ -221,7 +221,7 @@ O projeto é composto por componentes independentes que interagem para formar um
         uvicorn main:app --reload --host 127.0.0.1
 
 Agora todo sistema de votação está configurado! A aplicação estará rodando em http://localhost:8080/.<br>.
-Para uma melhor demonstração da votação, veja o vídeo de apresentação do projeto no [YouTube video](LINK AQUI).
+Para uma melhor demonstração da votação, veja o vídeo de apresentação do projeto no [YouTube](LINK AQUI).
 
 9. Comecemos a parte de auditoria via IA: abra um novo terminal na raiz do projeto e incialize outro servidor node para o coletor de dados da votação.
     
