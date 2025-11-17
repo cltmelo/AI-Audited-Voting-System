@@ -123,11 +123,14 @@ O projeto é composto por componentes independentes que interagem para formar um
 7. Adicione uma network ao metamask. ( Network name - Localhost 7575, RPC URl - http://localhost:7545, Chain ID - 1337, Currency symbol - ETH)
 
 8. Abra MySQL (**ver fontes externas para instalação e configurações padrão para usar o root como usuário, por exemplo**) e crie uma base de dados chamada <b>voter_db</b>. (Não use XAMPP !)
-		sudo mysql -u root -p
-		CREATE DATABASE voter_db;
+        
+        sudo mysql -u root -p
+        CREATE DATABASE voter_db;
 
 9. Caso abra um novo terminal para reconectar no mysql, lembresse de entrar na BD.
-		USE voter_db;
+        
+        USE voter_db;
+
 
 10. Com a BD criada, crie uma nova tabela chamada de <b>voters</b> no seguinte formato e adicione alguns valores.
 
