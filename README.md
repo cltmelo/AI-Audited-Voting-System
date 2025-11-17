@@ -71,17 +71,23 @@ O projeto é composto por componentes independentes que interagem para formar um
 
 ## Fluxo de Dados
 
-```mermaid
-flowchart LR
-    A[Usuário<br>(login.html)]
-    --> B[Backend<br>(FastAPI / MySQL)]
-    --> C[Frontend<br>(admin/index.html via MetaMask)]
-    <--> D[Blockchain<br>(Voting.sol)]
+**Usuário** (`login.html`)  
+&nbsp;&darr;  
+**Backend** (FastAPI / MySQL)  
+&nbsp;&darr;  
+**Frontend** (`admin/index.html` via **MetaMask**)  
+&nbsp;&harr;  
+**Blockchain** (`Voting.sol`)
 
-    D -- "emite eventos" --> E[Coletor<br>(listener.js)]
-    E --> F[data/audit_database.json]
-    F --> G[Auditor de IA<br>(auditor.py + Ollama / Llama 3)]
-    G --> H[report.txt]
+`Voting.sol` *emite eventos*  
+&nbsp;&darr;  
+**Coletor** (`listener.js`) — *ouve e coleta dados*  
+&nbsp;&darr;  
+`data/audit_database.json`  
+&nbsp;&darr;  
+**Auditor de IA** (`auditor.py`) — *analisa com Ollama / Llama 3*  
+&nbsp;&darr;  
+`report.txt`
 
 
 ## 🔧 Requisitos
